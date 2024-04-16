@@ -1,5 +1,5 @@
 _base_ = [
-    '../_base_/models/setr_naive.py', '../_base_/datasets/ade20k.py',
+    '../_base_/models/setr_naive.py', '../_base_/datasets/ade20k_256x256.py',
     '../_base_/default_runtime.py', '../_base_/schedules/schedule_160k.py'
 ]
 crop_size = (256, 256)
