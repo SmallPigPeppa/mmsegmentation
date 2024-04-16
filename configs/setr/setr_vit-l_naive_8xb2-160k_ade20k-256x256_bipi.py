@@ -1,5 +1,5 @@
 _base_ = [
-    '../_base_/models/setr_naive.py', '../_base_/datasets/ade20k_256x256.py',
+    '../_base_/models/setr_naive.py', '../_base_/datasets/ade20k.py',
     '../_base_/default_runtime.py', '../_base_/schedules/schedule_160k.py'
 ]
 crop_size = (256, 256)
@@ -61,6 +61,15 @@ model = dict(
     ],
     test_cfg=dict(mode='slide', crop_size=(256, 256), stride=(170, 170)),
 )
+
+test_pipeline = [
+    dict(type='LoadImageFromFile'),
+    # dict(type='Resize', scale=(2048, 512), keep_ratio=True),
+    dict(type='Resize', scale=(1024, 256), keep_ratio=True),
+    # add loading annotation after ``Resize`` because ground truth
+    # does not need to do resize data transform
+    dict(type='LoadAnnotations', reduce_zero_label=True),
+    dict(type='PackSegInputs')]
 
 optimizer = dict(lr=0.01, weight_decay=0.0)
 optim_wrapper = dict(
