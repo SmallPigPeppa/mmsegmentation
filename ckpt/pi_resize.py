@@ -44,12 +44,31 @@ def main():
     src = 'setr_naive_512x512_160k_b16_ade20k_20210619_191258-061f24f5.pth'
     dst = 'ms_ckpt/setr_naive_256x256_160k_b16_ade20k_20210619_191258-061f24f5_pi.pth'
 
-    # new_patch_size = 4
-    # new_grid_size = 32
-    # old_grid_size = 32
-    # resize_type = "pi"
-    # src = 'setr_naive_512x512_160k_b16_ade20k_20210619_191258-061f24f5.pth'
-    # dst = 'ms_ckpt/setr_naive_128x128_160k_b16_ade20k_20210619_191258-061f24f5_pi.pth'
+    checkpoint = CheckpointLoader.load_checkpoint(src, map_location='cpu')
+    if 'state_dict' in checkpoint:
+        # timm checkpoint
+        state_dict = checkpoint['state_dict']
+    elif 'model' in checkpoint:
+        # deit checkpoint
+        state_dict = checkpoint['model']
+    else:
+        state_dict = checkpoint
+    weight = resize_patch_embed(
+        state_dict,
+        new_patch_size=new_patch_size,
+        new_grid_size=new_grid_size,
+        old_grid_size=old_grid_size,
+        resize_type=resize_type
+    )
+    mmengine.mkdir_or_exist(osp.dirname(dst))
+    torch.save(weight, dst)
+
+    new_patch_size = 4
+    new_grid_size = 32
+    old_grid_size = 32
+    resize_type = "pi"
+    src = 'setr_naive_512x512_160k_b16_ade20k_20210619_191258-061f24f5.pth'
+    dst = 'ms_ckpt/setr_naive_128x128_160k_b16_ade20k_20210619_191258-061f24f5_pi.pth'
 
     checkpoint = CheckpointLoader.load_checkpoint(src, map_location='cpu')
     if 'state_dict' in checkpoint:
