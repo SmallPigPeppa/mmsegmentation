@@ -10,6 +10,7 @@ model = dict(
     pretrained=None,
     backbone=dict(
         img_size=(256, 256),
+        patch_size=16,
         drop_rate=0.,
         init_cfg=dict(
             type='Pretrained', checkpoint='pretrain/vit_large_p16.pth')),
