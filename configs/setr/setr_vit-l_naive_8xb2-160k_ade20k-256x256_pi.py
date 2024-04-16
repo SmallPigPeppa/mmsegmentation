@@ -59,7 +59,7 @@ model = dict(
             loss_decode=dict(
                 type='CrossEntropyLoss', use_sigmoid=False, loss_weight=0.4))
     ],
-    test_cfg=dict(mode='slide', crop_size=(256, 256), stride=(341, 341)),
+    test_cfg=dict(mode='slide', crop_size=(256, 256), stride=(170, 170)),
 )
 
 optimizer = dict(lr=0.01, weight_decay=0.0)

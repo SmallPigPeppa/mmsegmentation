@@ -286,7 +286,10 @@ class EncoderDecoder(BaseSegmentor):
                                 int(preds.shape[2] - y2)))
 
                 count_mat[:, :, y1:y2, x1:x2] += 1
+
         # import pdb;pdb.set_trace()
+        # if (count_mat == 0).sum() != 0:
+        #     import pdb;pdb.set_trace()
         assert (count_mat == 0).sum() == 0
         seg_logits = preds / count_mat
 
