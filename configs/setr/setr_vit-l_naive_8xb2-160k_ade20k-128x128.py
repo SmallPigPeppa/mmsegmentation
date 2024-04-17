@@ -1,5 +1,5 @@
 _base_ = [
-    '../_base_/models/setr_naive.py', '../_base_/datasets/ade20k.py',
+    '../_base_/models/setr_naive.py', '../_base_/datasets/ade20k_128x128.py',
     '../_base_/default_runtime.py', '../_base_/schedules/schedule_160k.py'
 ]
 crop_size = (128, 128)
@@ -62,30 +62,7 @@ model = dict(
     test_cfg=dict(mode='slide', crop_size=(128, 128), stride=(85, 85)),
 )
 
-test_pipeline = [
-    dict(type='LoadImageFromFile'),
-    # dict(type='Resize', scale=(2048, 512), keep_ratio=True),
-    dict(type='Resize', scale=(512, 128), keep_ratio=True),
-    # add loading annotation after ``Resize`` because ground truth
-    # does not need to do resize data transform
-    dict(type='LoadAnnotations', reduce_zero_label=True),
-    dict(type='PackSegInputs')]
 
-dataset_type = 'ADE20KDataset'
-data_root = 'data/ade/ADEChallengeData2016'
-val_dataloader = dict(
-    batch_size=1,
-    num_workers=4,
-    persistent_workers=True,
-    sampler=dict(type='DefaultSampler', shuffle=False),
-    dataset=dict(
-        type=dataset_type,
-        data_root=data_root,
-        data_prefix=dict(
-            img_path='images/validation',
-            seg_map_path='annotations/validation'),
-        pipeline=test_pipeline))
-test_dataloader = val_dataloader
 
 optimizer = dict(lr=0.01, weight_decay=0.0)
 optim_wrapper = dict(
