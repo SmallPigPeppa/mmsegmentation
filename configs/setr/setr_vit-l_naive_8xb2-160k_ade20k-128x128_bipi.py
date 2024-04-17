@@ -71,6 +71,22 @@ test_pipeline = [
     dict(type='LoadAnnotations', reduce_zero_label=True),
     dict(type='PackSegInputs')]
 
+dataset_type = 'ADE20KDataset'
+data_root = 'data/ade/ADEChallengeData2016'
+val_dataloader = dict(
+    batch_size=1,
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(type='DefaultSampler', shuffle=False),
+    dataset=dict(
+        type=dataset_type,
+        data_root=data_root,
+        data_prefix=dict(
+            img_path='images/validation',
+            seg_map_path='annotations/validation'),
+        pipeline=test_pipeline))
+test_dataloader = val_dataloader
+
 optimizer = dict(lr=0.01, weight_decay=0.0)
 optim_wrapper = dict(
     type='OptimWrapper',
