@@ -125,7 +125,7 @@ class EncoderDecoder(BaseSegmentor):
                       batch_img_metas: List[dict]) -> Tensor:
         """Encode images with backbone and decode into a semantic segmentation
         map of the same size as input."""
-        import pdb;pdb.set_trace()
+        # import pdb;pdb.set_trace()
         x = self.extract_feat(inputs)
         seg_logits = self.decode_head.predict(x, batch_img_metas,
                                               self.test_cfg)
