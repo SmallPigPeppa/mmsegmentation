@@ -12,7 +12,7 @@ done
 
 
 
-for size in 768x768 384x384 192x192
+for size in 384x384 192x192
 do
     # Set variables based on the current size
     CONFIG_FILE="configs/setr/setr_vit-l_naive_8xb1-80k_cityscapes-${size}.py"
@@ -26,7 +26,7 @@ done
 
 
 
-for size in 768x768 384x384 192x192
+for size in 384x384 192x192
 do
     # Set variables based on the current size
     CONFIG_FILE="configs/setr/setr_vit-l_naive_8xb1-80k_cityscapes-${size}.py"
