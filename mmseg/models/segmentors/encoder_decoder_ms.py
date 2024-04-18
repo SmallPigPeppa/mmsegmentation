@@ -14,7 +14,7 @@ from .base import BaseSegmentor
 
 
 @MODELS.register_module()
-class EncoderDecoderImgresize(BaseSegmentor):
+class EncoderDecoderMS(BaseSegmentor):
     """Encoder Decoder segmentors.
 
     EncoderDecoder typically consists of backbone, decode_head, auxiliary_head.
